@@ -44,7 +44,7 @@ const VideoFaceSwap: React.FC<SwapProps & {targetId: string | null}> = ({active,
         targetInputRef.current?.click()
     }
 
-    const swapImageQuery = useSwapVideo();
+    const swapVideoQuery = useSwapVideo();
 
     const handleSwap = () => {
         const form = new FormData();
@@ -52,7 +52,7 @@ const VideoFaceSwap: React.FC<SwapProps & {targetId: string | null}> = ({active,
         form.append('target_photo', targetFile);
 
         if (targetId) {
-            swapImageQuery.mutate(form, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
+            swapVideoQuery.mutate(form, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
         } else {
             return ;
         }

@@ -3,7 +3,6 @@ import { useClientStore } from "@/store/user-store"
 import { SuggestedType } from "@/types/SwapProps"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
-type SwapVideo = { video_id: string, photo: FormData }
 
 export const useSwapImage = () => { 
     const {auth_token} = useClientStore();
@@ -25,7 +24,7 @@ export const useSwapVideo = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const apiClient = new ApiClient<any>('/api/swap/suggested-image/');
 	return useMutation({
-		mutationFn: (user: SwapVideo) => apiClient.post(user, 
+		mutationFn: (form: FormData) => apiClient.post(form, 
             {
                 headers: {
                     Authorization: "Bearer " + auth_token

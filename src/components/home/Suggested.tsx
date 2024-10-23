@@ -37,7 +37,7 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
                     setTargetId(video.idvideo);
                   }}
                 >
-                  Use Video ({formatDuration(video.duration_seconds)})
+                  Use Video
                 </div>
               </div>
             ))
