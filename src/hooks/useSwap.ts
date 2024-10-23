@@ -1,5 +1,6 @@
 import ApiClient from "@/services/api-client"
 import { useClientStore } from "@/store/user-store"
+import { SuggestedType } from "@/types/SwapProps"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
 type SwapImage = { source_photo: FormData, target_photo: FormData }
@@ -44,7 +45,7 @@ export const useGetSuggested = () => {
 	const {auth_token} = useClientStore();
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<any>("/api/swap/suggested/");
+	const apiClient = new ApiClient<SuggestedType>("/api/swap/suggested/");
 	return useQuery(
         {
             queryKey: ['suggested'], 

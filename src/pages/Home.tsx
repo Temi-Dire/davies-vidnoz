@@ -79,7 +79,7 @@ const Home = () => {
                     </div>
                   }
 
-                <div className="md:w-1/2">
+                <div className={`${ activeTab === 'suggested' ? 'w-full' : "md:w-1/2"}`}>
                   <PhotoSwap active={activeTab === 'photo'} setPreviewUrl={setPreviewUrl} setPreviewTargetUrl={setPreviewTargetUrl} />
                   <VideoFaceSwap active={activeTab === 'video'} setPreviewUrl={setPreviewUrl} setPreviewTargetUrl={setPreviewTargetUrl} />
                   <ChangeClothes active={activeTab === 'clothes'} setPreviewUrl={setPreviewUrl} />
