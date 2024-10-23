@@ -47,12 +47,11 @@ const VideoFaceSwap: React.FC<SwapProps> = ({active, setPreviewUrl, setPreviewTa
     const swapImageQuery = useSwapImage();
 
     const handleSwap = () => {
-        const sourceFormData = new FormData();
-        sourceFormData.append('source_photo', sourceFile);
-        const targetFormData = new FormData();
-        targetFormData.append('target_photo', targetFile);
+        const form = new FormData();
+        form.append('source_photo', sourceFile);
+        form.append('target_photo', targetFile);
 
-        swapImageQuery.mutate({source_photo: sourceFormData, target_photo: targetFormData}, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
+        swapImageQuery.mutate(form, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
     }
 
 
@@ -74,10 +73,10 @@ const VideoFaceSwap: React.FC<SwapProps> = ({active, setPreviewUrl, setPreviewTa
                         <div className="space-y-2">
                             <div className="flex items-center space-x-2">
                                 <div className="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold">2</div>
-                                <h3 className="font-medium text-gray-700">Upload a video with a face (Target face image)</h3>
+                                <h3 className="font-medium text-gray-700">Upload an image with a face (Target face image)</h3>
                             </div>
-                            <input type="file" ref={targetInputRef} className="hidden" onChange={handleTargetUpload} accept={"video/*"}/>
-                            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white" onClick={triggerTargetUpload}> <ImageIcon className="w-4 h-4 mr-2" />Upload Target Video</Button>
+                            <input type="file" ref={targetInputRef} className="hidden" onChange={handleTargetUpload} accept={"image/*"}/>
+                            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white" onClick={triggerTargetUpload}> <ImageIcon className="w-4 h-4 mr-2" />Upload Target Image</Button>
                             <p className="text-xs text-gray-500"> Drag or upload your photo JPG, PNG, WEBP</p>
                         </div>
                         <div className="space-y-2">

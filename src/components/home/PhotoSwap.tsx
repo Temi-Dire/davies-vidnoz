@@ -49,12 +49,11 @@ const PhotoSwap: React.FC<SwapProps> = ({active, setPreviewUrl, setPreviewTarget
     const swapImageQuery = useSwapImage();
 
     const handleSwap = () => {
-        const sourceFormData = new FormData();
-        sourceFormData.append('source_photo', sourceFile);
-        const targetFormData = new FormData();
-        targetFormData.append('target_photo', targetFile);
+        const form = new FormData();
+        form.append('source_photo', sourceFile);
+        form.append('target_photo', targetFile);
 
-        swapImageQuery.mutate({source_photo: sourceFormData, target_photo: targetFormData}, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
+        swapImageQuery.mutate(form, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
     }
 
     return (
