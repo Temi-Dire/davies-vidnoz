@@ -4,9 +4,10 @@ interface SuggestedProps {
     active: boolean;
     goToVideo: () => void;
     setPreviewTargetUrl: (val: string | null) => void;
+    setTargetId: (val: string | null) => void;
 }
 
-const Suggested: React.FC<SuggestedProps> = ({active, goToVideo, setPreviewTargetUrl}) => {
+const Suggested: React.FC<SuggestedProps> = ({active, goToVideo, setPreviewTargetUrl, setTargetId}) => {
 
     const { data } = useGetSuggested();
     
@@ -30,11 +31,11 @@ const Suggested: React.FC<SuggestedProps> = ({active, goToVideo, setPreviewTarge
                                 <p>06:00</p>
                             </span>
                         </div>
-                        <div className="w-full bg-blue-700 py-3 text-lg text-white text-center cursor-pointer" onClick={() => {goToVideo(); setPreviewTargetUrl(video.video_url)}}>Use Video</div>
+                        <div className="w-full bg-blue-700 py-3 text-lg text-white text-center cursor-pointer" onClick={() => {goToVideo(); setPreviewTargetUrl(video.video_url); setTargetId(video.idvideo)}}>Use Video</div>
                     </div>) : 
                     <p>No videos found!</p>
                     }
-                    <div className="w-[500px] rounded-3xl overflow-hidden">
+                    {/* <div className="w-[500px] rounded-3xl overflow-hidden">
                         <div className="w-full bg-gray-500 h-[300px]"/>
                         <div className="px-2 py-4 flex gap-x-4 bg-white">
                             <div className="size-[50px] bg-gray-500 rounded-md"/>
@@ -44,7 +45,7 @@ const Suggested: React.FC<SuggestedProps> = ({active, goToVideo, setPreviewTarge
                             </span>
                         </div>
                         <div className="w-full bg-blue-700 py-3 text-lg text-white text-center cursor-pointer" onClick={() => {goToVideo(); setPreviewTargetUrl('')}}>Use Video</div>
-                    </div>
+                    </div> */}
                 </section>
         }
         </>

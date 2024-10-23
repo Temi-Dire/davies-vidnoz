@@ -4,10 +4,10 @@ import { Card, CardContent } from "../ui/card"
 import { Switch } from "../ui/switch"
 import { Image as ImageIcon, Video } from "lucide-react"
 import { useRef, useState } from "react"
-import { useSwapImage } from "@/hooks/useSwap"
+import { useSwapVideo } from "@/hooks/useSwap"
 import toast from "react-hot-toast"
 
-const VideoFaceSwap: React.FC<SwapProps> = ({active, setPreviewUrl, setPreviewTargetUrl}) => {
+const VideoFaceSwap: React.FC<SwapProps & {targetId: string | null}> = ({active, setPreviewUrl, setPreviewTargetUrl, targetId = null}) => {
     const sourceInputRef = useRef<HTMLInputElement>(null);
     const targetInputRef = useRef<HTMLInputElement>(null);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,7 +44,7 @@ const VideoFaceSwap: React.FC<SwapProps> = ({active, setPreviewUrl, setPreviewTa
         targetInputRef.current?.click()
     }
 
-    const swapImageQuery = useSwapImage();
+    const swapImageQuery = useSwapVideo();
 
     const handleSwap = () => {
         const sourceFormData = new FormData();
@@ -52,7 +52,12 @@ const VideoFaceSwap: React.FC<SwapProps> = ({active, setPreviewUrl, setPreviewTa
         const targetFormData = new FormData();
         targetFormData.append('target_photo', targetFile);
 
-        swapImageQuery.mutate({source_photo: sourceFormData, target_photo: targetFormData}, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
+        if (targetId) {
+            swapImageQuery.mutate({video_id: targetId as string, photo: sourceFormData}, {onSuccess: () => toast.success('Image has been swapped successfully'), onError: () => {toast.error('An error occured!')}})
+        } else {
+            return ;
+        }
+        
     }
 
 

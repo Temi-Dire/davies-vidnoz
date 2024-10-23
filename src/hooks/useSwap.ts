@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 
 type SwapImage = { source_photo: FormData, target_photo: FormData }
 
-type SwapVideo = { video_id: FormData, photo: FormData }
+type SwapVideo = { video_id: string, photo: FormData }
 
 export const useSwapImage = () => { 
     const {auth_token} = useClientStore();
