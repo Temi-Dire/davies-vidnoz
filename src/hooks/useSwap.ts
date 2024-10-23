@@ -3,7 +3,7 @@ import { useClientStore } from "@/store/user-store"
 import { SuggestedType } from "@/types/SwapProps"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
-type SwapVideo = { video_id: FormData, photo: FormData }
+type SwapVideo = { video_id: string, photo: FormData }
 
 export const useSwapImage = () => { 
     const {auth_token} = useClientStore();

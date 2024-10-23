@@ -4,9 +4,10 @@ interface SuggestedProps {
   active: boolean;
   goToVideo: () => void;
   setPreviewTargetUrl: (val: string | null) => void;
+  setTargetId: (val: string | null) => void;
 }
 
-const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTargetUrl }) => {
+const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTargetUrl, setTargetId }) => {
   const { data } = useGetSuggested();
 
   const formatDuration = (duration: number) => {
@@ -33,6 +34,7 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
                   onClick={() => {
                     goToVideo();
                     setPreviewTargetUrl(video.video_url);
+                    setTargetId(video.idvideo);
                   }}
                 >
                   Use Video ({formatDuration(video.duration_seconds)})
@@ -54,6 +56,7 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
               onClick={() => {
                 goToVideo();
                 setPreviewTargetUrl("");
+                setTargetId("");
               }}
             >
               Use Video ({formatDuration(10)})

@@ -11,9 +11,14 @@ import MyVideos from '@/components/home/MyVideos'
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState<'photo' | 'video' | 'clothes' | 'suggested' | 'my-videos'>('photo');
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [previewTargetUrl, setPreviewTargetUrl] = useState<string | null>(null);
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [targetPhotoUrl, setTargetPhotoUrl] = useState<string | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [targetVideoUrl, setTargetVideoUrl] = useState<string | null>(null);
+  const [clothUrl, setClothUrl] = useState<string | null>(null);
+  const [targetClothUrl, setTargetUrl] = useState<string | null>(null);
   const [showProcessedMedia, setShowProcessedMedia] = useState(false);
+  const [suggestedVideoId, setSuggestedVideoId] = useState<string | null>(null);
 
   const processedMedia = [
     { id: 1, type: 'video', name: 'Video 1', createdAt: '2023-06-01', expiresAt: '2023-07-01' },
@@ -59,19 +64,61 @@ const Home = () => {
 
                 <div className="flex flex-col md:flex-row gap-8">
                   {
-                  (activeTab === 'video' || activeTab === 'photo' || activeTab === 'clothes') &&
+                    activeTab === 'photo' &&
                     <div className="md:w-1/2 flex-1 ">
-                        {previewUrl && (
+                        {photoUrl && (
                         <>
                         <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Source Photo</h1>
-                        <div className="mb-4"> {activeTab === 'video' ? (<video src={previewUrl} controls className="w-full rounded-lg shadow-lg h-[500px] object-contain" />) : (<img src={previewUrl} alt="Uploaded source" className="w-full h-[500px] object-contain rounded-lg shadow-lg" />)}</div>
+                        <div className="mb-4"> <img src={photoUrl} alt="Uploaded source" className="w-full h-[500px] object-contain rounded-lg shadow-lg" /></div>
                         </>
                         )
                         }
-                        {previewTargetUrl && (
+                        {targetPhotoUrl && (
                         <>
                         <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Target Photo</h1>
-                        <div className="mb-4"> {activeTab === 'video' ? (<video src={previewTargetUrl} controls className="w-full rounded-lg shadow-lg" />) : (<img src={previewTargetUrl} alt="Uploaded source" className="w-full h-[500px] object-contain rounded-lg shadow-lg" />)}</div>
+                        <div className="mb-4"><img src={targetPhotoUrl} alt="Uploaded source" className="w-full h-[500px] object-contain rounded-lg shadow-lg" /></div>
+                        </>
+                        )
+                        }
+                        <p className="mt-4 text-sm text-gray-500 flex items-center "> <Info className="w-4 h-4 mr-1" /> Disclaimer: This AI service is for personal entertainment only. Please do not distribute or use the modified content for illegal purposes.</p>
+                    </div>
+                  }
+
+                    {
+                    activeTab === 'video' &&
+                    <div className="md:w-1/2 flex-1 ">
+                        {videoUrl && (
+                        <>
+                        <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Source Video</h1>
+                        <div className="mb-4"><video src={videoUrl} controls className="w-full rounded-lg shadow-lg h-[500px] object-contain" /></div>
+                        </>
+                        )
+                        }
+                        {targetVideoUrl && (
+                        <>
+                        <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Target Video</h1>
+                        <div className="mb-4"><video src={targetVideoUrl} controls className="w-full rounded-lg shadow-lg" /></div>
+                        </>
+                        )
+                        }
+                        <p className="mt-4 text-sm text-gray-500 flex items-center "> <Info className="w-4 h-4 mr-1" /> Disclaimer: This AI service is for personal entertainment only. Please do not distribute or use the modified content for illegal purposes.</p>
+                    </div>
+                  }
+
+                    {
+                    activeTab === 'clothes' &&
+                    <div className="md:w-1/2 flex-1 ">
+                        {clothUrl && (
+                        <>
+                        <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Source Photo</h1>
+                        <div className="mb-4"> <img src={clothUrl} alt="Uploaded source" className="w-full h-[500px] object-contain rounded-lg shadow-lg" /></div>
+                        </>
+                        )
+                        }
+                        {targetClothUrl && (
+                        <>
+                        <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Target Photo</h1>
+                        <div className="mb-4"><img src={targetClothUrl} alt="Uploaded source" className="w-full h-[500px] object-contain rounded-lg shadow-lg" /></div>
                         </>
                         )
                         }
@@ -80,10 +127,10 @@ const Home = () => {
                   }
 
                 <div className={`${ activeTab === 'suggested' ? 'w-full' : "md:w-1/2"}`}>
-                  <PhotoSwap active={activeTab === 'photo'} setPreviewUrl={setPreviewUrl} setPreviewTargetUrl={setPreviewTargetUrl} />
-                  <VideoFaceSwap active={activeTab === 'video'} setPreviewUrl={setPreviewUrl} setPreviewTargetUrl={setPreviewTargetUrl} />
-                  <ChangeClothes active={activeTab === 'clothes'} setPreviewUrl={setPreviewUrl} />
-                  <Suggested active={activeTab === 'suggested'} goToVideo={() => setActiveTab('video')} setPreviewTargetUrl={setPreviewTargetUrl}/>
+                  <PhotoSwap active={activeTab === 'photo'} setPreviewUrl={setPhotoUrl} setPreviewTargetUrl={setTargetPhotoUrl} />
+                  <VideoFaceSwap active={activeTab === 'video'} setPreviewUrl={setVideoUrl} setPreviewTargetUrl={setTargetVideoUrl} targetId={suggestedVideoId}/>
+                  <ChangeClothes active={activeTab === 'clothes'} setPreviewUrl={setClothUrl} />
+                  <Suggested active={activeTab === 'suggested'} goToVideo={() => setActiveTab('video')} setPreviewTargetUrl={setClothUrl} setTargetId={setSuggestedVideoId}/>
                   <MyVideos active={activeTab === 'my-videos'} />
                 </div>
             </div>
