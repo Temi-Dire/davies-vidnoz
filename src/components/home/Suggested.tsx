@@ -37,14 +37,14 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
                     setTargetId(video.idvideo);
                   }}
                 >
-                  Use Video
+                  Use Video ({formatDuration(10)})
                 </div>
               </div>
             ))
           ) : (
             <p>No videos found!</p>
           )}
-          <div className="w-full rounded-3xl overflow-hidden">
+          {/* <div className="w-full rounded-3xl overflow-hidden">
             <div className="w-full bg-gray-500 h-[300px]">
               <video className="w-full h-full object-cover" controls>
                 <source src={""} type="video/mp4" />
@@ -61,7 +61,7 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
             >
               Use Video ({formatDuration(10)})
             </div>
-          </div>
+          </div> */}
         </section>
       )}
     </>
