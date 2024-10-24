@@ -10,6 +10,7 @@ import CreateAccountModal from "./CreateAccountModal";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useLoginUser } from "@/hooks/useAuthData";
 import toast from "react-hot-toast";
+import { Rings } from 'react-loader-spinner'
 
 interface LoginModalProps { 
     isLoginOpen: boolean;
@@ -59,9 +60,12 @@ const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, set
 
     const {mutate} = useLoginUser();
 
+    const [isLoading, setIsLoading] = useState(false); 
+
     const handleLogin = () => {
         if (email !== '' && password !== '') {
-            mutate({email, password});
+            setIsLoading(true);
+            mutate({email, password}, {onSuccess: () => {setIsLoading(false); setIsLoginOpen('hidden'); toast.success('Login successful')}, onError: () => {setIsLoading(false); toast.error('Invalid email or password')}});
         } else {
             toast.error('Please fill in all fields');
         }
@@ -103,7 +107,9 @@ const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, set
                     </button>
                 </div>
             </div>
-            <div className="w-full bg-purple-600 p-2 text-center text-white font-medium rounded-lg hover:bg-opacity-95 hover:bg-purple-700 hover:scale-[1.02] transition duration-300 ease-in cursor-pointer " onClick={handleLogin}> Login </div>
+            <div className="w-full bg-purple-600 h-[50px] flex justify-center items-center text-center text-white font-medium rounded-lg hover:bg-opacity-95 hover:bg-purple-700 hover:scale-[1.02] transition duration-300 ease-in cursor-pointer " onClick={handleLogin}>
+                {isLoading ?  <Rings height="40" width="40" color="#ffffff" ariaLabel="rings-loading" /> :  <span>Login</span>}
+            </div>
             </form>
             <div className="mt-4 space-y-2">
             <Button onClick={handleGoogleLogin} className="w-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center"><FaGoogle className="mr-2" /> Sign in with Google</Button>
