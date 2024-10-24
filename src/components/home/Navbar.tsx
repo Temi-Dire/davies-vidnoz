@@ -2,6 +2,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import LoginModal from "./LoginModal"
+import { useClientStore } from "@/store/user-store";
 
 interface NavbarProps {
     showProcessedMedia: boolean;
@@ -11,6 +12,8 @@ interface NavbarProps {
 const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia}) => {
     const [loggedIn, setLoggedIn] = useState(false)
     const [, setIsLoginOpen] = useState(false)
+
+    const {auth_token} = useClientStore();
 
     const [modalToOpen, setModalToOpen] = useState<'login' | 'sign-up' | 'hidden'>('hidden');
 
@@ -38,7 +41,7 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
                         <a href="#" className="text-gray-500 hover:text-gray-900">Company <ChevronDown className="inline h-4 w-4" /></a>
                     </nav> */}
                     <div className="flex items-center">
-                        {loggedIn ? (
+                        {auth_token ? (
                         <Button variant="ghost" className="text-gray-700 mr-4" onClick={toggleProcessedMedia}> Welcome, ADMIN 1</Button>
                         ) : (
                         <Button variant="ghost" className="text-gray-500 hover:text-gray-900 mr-4" onClick={() => {setIsLoginOpen(true); setModalToOpen('login')}}>Login</Button>

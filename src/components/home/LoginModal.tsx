@@ -72,7 +72,7 @@ const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, set
     }
 
     return (
-    <Dialog open={isLoginOpen} onOpenChange={()=>{}}>
+    <Dialog open={isLoginOpen} onOpenChange={()=>{setIsLoginOpen('hidden')}}>
     <DialogContent className="sm:max-w-[425px]">
     {activeModal === 'login' &&
         <>
