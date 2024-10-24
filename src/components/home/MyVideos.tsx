@@ -1,11 +1,11 @@
-import { useGetUserVideos } from "@/hooks/useSwap";
+// import { useGetUserVideos } from "@/hooks/useSwap";
 
 interface MyVideosProps {
     active: boolean;
 }
 
 const MyVideos: React.FC<MyVideosProps> = ({active}) => {
-    const { data } = useGetUserVideos();
+    // const { data } = useGetUserVideos();
     return (
         <>
         {

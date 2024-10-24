@@ -16,7 +16,7 @@ const Home = () => {
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [targetVideoUrl, setTargetVideoUrl] = useState<string | null>(null);
   const [clothUrl, setClothUrl] = useState<string | null>(null);
-  const [targetClothUrl, setTargetUrl] = useState<string | null>(null);
+  const [targetClothUrl, ] = useState<string | null>(null);
   const [showProcessedMedia, setShowProcessedMedia] = useState(false);
   const [suggestedVideoId, setSuggestedVideoId] = useState<string | null>(null);
 

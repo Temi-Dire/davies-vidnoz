@@ -10,7 +10,7 @@ interface NavbarProps {
 
 const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia}) => {
     const [loggedIn, setLoggedIn] = useState(false)
-    const [isLoginOpen, setIsLoginOpen] = useState(false)
+    const [, setIsLoginOpen] = useState(false)
 
     const [modalToOpen, setModalToOpen] = useState<'login' | 'sign-up' | 'hidden'>('hidden');
 
