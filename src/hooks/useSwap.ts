@@ -38,16 +38,13 @@ export const useSwapVideo = () => {
 }
 
 export const useGetSuggested = () => {
-
-	const {auth_token} = useClientStore();
-
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const apiClient = new ApiClient<SuggestedType>("/api/swap/suggested/");
 	return useQuery(
         {
             queryKey: ['suggested'], 
             queryFn: () => {
-                return apiClient.get({headers: {Authorization: "Bearer " + auth_token}})
+                return apiClient.get()
             }
         }
     );
