@@ -23,6 +23,7 @@ const VideoFaceSwap: React.FC<SwapProps & {targetId: string | null}> = ({active,
         const url = URL.createObjectURL(file)
         setPreviewUrl(url)
         }
+        console.log('')
     }
 
     const handleTargetUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,8 +81,8 @@ const VideoFaceSwap: React.FC<SwapProps & {targetId: string | null}> = ({active,
                                 <div className="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold">2</div>
                                 <h3 className="font-medium text-gray-700">Upload an image with a face (Target face image)</h3>
                             </div>
-                            <input type="file" ref={targetInputRef} className="hidden" onChange={handleTargetUpload} accept={"image/*"}/>
-                            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white" onClick={triggerTargetUpload}> <ImageIcon className="w-4 h-4 mr-2" />Upload Target Image</Button>
+                            <input type="file" ref={targetInputRef} className="hidden" onChange={handleTargetUpload} accept={"video/*"}/>
+                            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white" onClick={triggerTargetUpload}> <ImageIcon className="w-4 h-4 mr-2" />Upload Target Video</Button>
                             <p className="text-xs text-gray-500"> Drag or upload your photo JPG, PNG, WEBP</p>
                         </div>
                         <div className="space-y-2">
