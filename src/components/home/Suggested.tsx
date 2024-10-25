@@ -20,7 +20,7 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
     <>
       {active && (
         <section className="grid grid-cols-3 gap-4 w-full">
-          {/* {data && data.videos ? (
+          {data && data.videos ? (
             data?.videos.map((video, index) => (
               <div className="w-full rounded-3xl overflow-hidden" key={index}>
                 <div className="w-full bg-gray-500 h-[300px]">
@@ -43,8 +43,8 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
             ))
           ) : (
             <p>No videos found!</p>
-          )} */}
-          <div className="w-full rounded-3xl overflow-hidden">
+          )}
+          {/* <div className="w-full rounded-3xl overflow-hidden">
             <div className="w-full bg-gray-500 h-[300px]">
               <video className="w-full h-full object-cover" controls>
                 <source src={""} type="video/mp4" />
@@ -55,13 +55,14 @@ const Suggested: React.FC<SuggestedProps> = ({ active, goToVideo, setPreviewTarg
               className="w-full bg-blue-700 py-3 text-lg text-white text-center cursor-pointer"
               onClick={() => {
                 goToVideo();
-                setPreviewTargetUrl("");
+                setPreviewTargetUrl("http://localhost:5174/7236d2eb-1ebc-4058-8197-1797e2f6bfb9");
+                console.log('http://localhost:5174/7236d2eb-1ebc-4058-8197-1797e2f6bfb9')
                 setTargetId("");
               }}
             >
               Use Video ({formatDuration(10)})
             </div>
-          </div>
+          </div> */}
         </section>
       )}
     </>
