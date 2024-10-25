@@ -23,7 +23,6 @@ const VideoFaceSwap: React.FC<SwapProps & {targetId: string | null}> = ({active,
         const url = URL.createObjectURL(file)
         setPreviewUrl(url)
         }
-        console.log('')
     }
 
     const handleTargetUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +31,9 @@ const VideoFaceSwap: React.FC<SwapProps & {targetId: string | null}> = ({active,
         setTargetFile(file)
         const url = URL.createObjectURL(file)
         setPreviewTargetUrl(url)
+        console.log(url);
         }
         //This should be removed in the final version
-        console.log(sourceFile);
     }
 
     const triggerSourceUpload = () => {
