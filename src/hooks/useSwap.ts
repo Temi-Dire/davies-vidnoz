@@ -22,7 +22,7 @@ export const useSwapImage = () => {
 export const useSwapVideo = () => { 
     const {auth_token} = useClientStore();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<any>('/api/swap/suggested-image/');
+	const apiClient = new ApiClient<any>('/api/swap/video-image/');
 	return useMutation({
 		mutationFn: (form: FormData) => apiClient.post(form, 
             {

@@ -89,8 +89,8 @@ const Home = () => {
                     <div className="md:w-1/2 flex-1 ">
                         {videoUrl && (
                         <>
-                        <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Source Video</h1>
-                        <div className="mb-4"><video src={videoUrl} controls className="w-full rounded-lg shadow-lg h-[500px] object-contain" /></div>
+                        <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">Source Photo</h1>
+                        <div className="mb-4"><img src={videoUrl} className="w-full rounded-lg shadow-lg h-[500px] object-contain" /></div>
                         </>
                         )
                         }
@@ -128,9 +128,9 @@ const Home = () => {
 
                 <div className={`${ activeTab === 'suggested' ? 'w-full' : "md:w-1/2"}`}>
                   <PhotoSwap active={activeTab === 'photo'} setPreviewUrl={setPhotoUrl} setPreviewTargetUrl={setTargetPhotoUrl} />
-                  <VideoFaceSwap active={activeTab === 'video'} setPreviewUrl={setVideoUrl} setPreviewTargetUrl={setTargetVideoUrl} targetId={suggestedVideoId}/>
+                  <VideoFaceSwap active={activeTab === 'video'} setPreviewUrl={setVideoUrl} setPreviewTargetUrl={setTargetVideoUrl} targetId={suggestedVideoId} setTargetId={setSuggestedVideoId} targetVideoUrl={targetVideoUrl} videoUrl={videoUrl}/>
                   <ChangeClothes active={activeTab === 'clothes'} setPreviewUrl={setClothUrl} />
-                  <Suggested active={activeTab === 'suggested'} goToVideo={() => setActiveTab('video')} setPreviewTargetUrl={setClothUrl} setTargetId={setSuggestedVideoId}/>
+                  <Suggested active={activeTab === 'suggested'} goToVideo={() => setActiveTab('video')} setPreviewTargetUrl={setTargetVideoUrl} setTargetId={setSuggestedVideoId}/>
                   <MyVideos active={activeTab === 'my-videos'} />
                 </div>
             </div>
