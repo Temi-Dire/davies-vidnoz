@@ -8,7 +8,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import CreateAccountModal from "./CreateAccountModal";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import { useLoginUser } from "@/hooks/useAuthData";
+import { useGoogleLogin, useLoginUser } from "@/hooks/useAuthData";
 import toast from "react-hot-toast";
 import { Rings } from 'react-loader-spinner'
 
@@ -27,6 +27,7 @@ const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, set
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
 
+    const googleLoginQuery = useGoogleLogin();
 
 
     const handleTelegramCodeSubmit = () => {
@@ -113,7 +114,11 @@ const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, set
             </form>
             <div className="mt-4 space-y-2">
             <Button onClick={handleGoogleLogin} className="w-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center"><FaGoogle className="mr-2" /> Sign in with Google</Button>
-            <GoogleLogin onSuccess={(res) => console.log(jwtDecode(res.credential as string))} onError={() => console.log('An error occured')} />
+            <GoogleLogin onSuccess={(res) => {
+                console.log(jwtDecode(res.credential as string)); 
+                console.log(res.credential); 
+                googleLoginQuery.mutate({token: res.credential as string})
+            }} onError={() => console.log('An error occured')} />
             <Button onClick={handleTelegramLogin} className="w-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center"><FaTelegram className="mr-2" /> Sign in with Telegram</Button>
             </div>
             </>

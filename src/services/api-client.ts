@@ -19,7 +19,7 @@ class ApiClient<T> {
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
-      throw error;
+      // throw error;
     }
   };
 
