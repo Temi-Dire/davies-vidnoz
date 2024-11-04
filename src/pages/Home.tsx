@@ -8,6 +8,7 @@ import VideoFaceSwap from '@/components/home/VideoFaceSwap'
 import ChangeClothes from '@/components/home/ChangeClothes'
 import Suggested from '@/components/home/Suggested'
 import MyVideos from '@/components/home/MyVideos'
+import TopupModal from '@/components/home/TopupModal'
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState<'photo' | 'video' | 'clothes' | 'suggested' | 'my-videos'>('photo');
@@ -26,9 +27,15 @@ const Home = () => {
     // ... add more items as needed
   ]
 
+  const balance = 100;
+
+  const [isTopUpOpen, setIsTopUpOpen] = useState<boolean>(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-100">
     <Navbar showProcessedMedia={showProcessedMedia} setShowProcessedMedia={setShowProcessedMedia}/>
+
+    <TopupModal isTopupOpen={isTopUpOpen} setIsTopUpOpen={setIsTopUpOpen} />
 
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {showProcessedMedia ? (
@@ -52,7 +59,13 @@ const Home = () => {
         ) : (
             <>
                 <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">AI Face Swap & Clothes Change</h1>
+
                 <p className="text-center text-gray-600 mb-8">Upload your photos or videos to swap faces or change clothes. Be whoever you want to be!</p>
+
+                <p className='flex justify-center items-center gap-x-5 mb-8'>
+                  <span>Balance: ${balance}</span>
+                  <Button className="bg-purple-600 text-white hover:bg-purple-700" onClick={() => setIsTopUpOpen(true)}>Top up</Button>
+                </p>
 
                 <div className="flex flex-col sm:flex-row sm:justify-center space-y-2 sm:space-y-0 sm:space-x-2 mb-8">
                     <Button className={`${activeTab === 'photo' ? 'bg-purple-600 text-white' : 'bg-white text-gray-700 hover:text-purple-600 hover:bg-[#F6F6F6]'}`} onClick={() => setActiveTab('photo')}>Photo Face Swap</Button>

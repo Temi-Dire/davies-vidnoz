@@ -28,3 +28,14 @@ export const useCreateUser = () => {
 	})
 }
 
+export const useGoogleLogin = () => {
+	const {setAuthToken} = useClientStore();
+	const apiClient = new ApiClient<UserResponse>('/api/auth/google-login/');
+	return useMutation({
+		// mutationFn: () => apiClient.get(),
+		mutationFn: (token: {token: string}) => apiClient.post(token),
+		onSuccess: (res) => {
+			setAuthToken(res.access_token);
+		}
+	})
+}
