@@ -9,6 +9,8 @@ import ChangeClothes from '@/components/home/ChangeClothes'
 import Suggested from '@/components/home/Suggested'
 import MyVideos from '@/components/home/MyVideos'
 import TopupModal from '@/components/home/TopupModal'
+import { useClientStore } from '@/store/user-store'
+import { FaArrowLeft } from 'react-icons/fa'
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState<'photo' | 'video' | 'clothes' | 'suggested' | 'my-videos'>('photo');
@@ -31,15 +33,23 @@ const Home = () => {
 
   const [isTopUpOpen, setIsTopUpOpen] = useState<boolean>(false);
 
+  const {auth_token} = useClientStore();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-100">
     <Navbar showProcessedMedia={showProcessedMedia} setShowProcessedMedia={setShowProcessedMedia}/>
 
     <TopupModal isTopupOpen={isTopUpOpen} setIsTopUpOpen={setIsTopUpOpen} />
 
+    {/* Back Button */}
+
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {showProcessedMedia ? (
             <div className="space-y-6">
+                <div className='flex gap-x-2 w-fit items-center cursor-pointer hover:scale-[1.05] active:scale-[0.99] transition-all' onClick={() => setShowProcessedMedia(false)}>
+                  <FaArrowLeft />
+                  <p>Back</p>
+                </div>
                 <h2 className="text-2xl font-bold text-gray-900">Processed Media</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {processedMedia.map((item) => (
@@ -62,10 +72,10 @@ const Home = () => {
 
                 <p className="text-center text-gray-600 mb-8">Upload your photos or videos to swap faces or change clothes. Be whoever you want to be!</p>
 
-                <p className='flex justify-center items-center gap-x-5 mb-8'>
+                { auth_token && <p className='flex justify-center items-center gap-x-5 mb-8'>
                   <span>Balance: ${balance}</span>
                   <Button className="bg-purple-600 text-white hover:bg-purple-700" onClick={() => setIsTopUpOpen(true)}>Top up</Button>
-                </p>
+                </p> }
 
                 <div className="flex flex-col sm:flex-row sm:justify-center space-y-2 sm:space-y-0 sm:space-x-2 mb-8">
                     <Button className={`${activeTab === 'photo' ? 'bg-purple-600 text-white' : 'bg-white text-gray-700 hover:text-purple-600 hover:bg-[#F6F6F6]'}`} onClick={() => setActiveTab('photo')}>Photo Face Swap</Button>

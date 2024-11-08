@@ -1,8 +1,15 @@
 // import { ChevronDown } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import LoginModal from "./LoginModal"
 import { useClientStore } from "@/store/user-store";
+
+import { JwtPayload, jwtDecode } from "jwt-decode";
+
+interface CustomJwtPayload extends JwtPayload {
+  username: string; // Add other properties as needed
+}
+
 
 interface NavbarProps {
     showProcessedMedia: boolean;
@@ -10,17 +17,25 @@ interface NavbarProps {
 }    
 
 const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia}) => {
-    const [loggedIn, setLoggedIn] = useState(false)
+
     const [, setIsLoginOpen] = useState(false)
 
     const {auth_token} = useClientStore();
 
     const [modalToOpen, setModalToOpen] = useState<'login' | 'sign-up' | 'hidden'>('hidden');
 
+    const decodedToken = jwtDecode<CustomJwtPayload>(auth_token as string);
+
 
     const toggleProcessedMedia = () => {
         setShowProcessedMedia(!showProcessedMedia)
     }
+
+    useEffect(() => {
+         if  (!auth_token)  {
+        setModalToOpen('login');
+        }
+    }, [])
 
     return (<>
         <header className="bg-white shadow-sm">
@@ -30,7 +45,7 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
                         <svg className="h-8 w-8 text-purple-600" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
-                        <span className="ml-2 text-xl font-bold text-gray-900">Vidnoz</span>
+                        <span className="ml-2 text-xl font-bold text-gray-900">Swapview</span>
                     </div>
                     {/* <nav className="hidden md:flex space-x-4">
                         <a href="#" className="text-gray-500 hover:text-gray-900">Features <ChevronDown className="inline h-4 w-4" /></a>
@@ -42,16 +57,16 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
                     </nav> */}
                     <div className="flex items-center">
                         {auth_token ? (
-                        <Button variant="ghost" className="text-gray-700 mr-4" onClick={toggleProcessedMedia}> Welcome, ADMIN 1</Button>
+                        <Button variant="ghost" className="text-gray-700 mr-4 border border-black" onClick={toggleProcessedMedia}> Welcome, {decodedToken.username}</Button>
                         ) : (
                         <Button variant="ghost" className="text-gray-500 hover:text-gray-900 mr-4" onClick={() => {setIsLoginOpen(true); setModalToOpen('login')}}>Login</Button>
                         )}
-                        <Button className="bg-purple-600 hover:bg-purple-700 text-white">{loggedIn ? 'ADMIN 1' : 'Create Free AI Video'}</Button>
+                        {/* <Button className="bg-purple-600 hover:bg-purple-700 text-white">{loggedIn ? 'ADMIN 1' : 'Create Free AI Video'}</Button> */}
                     </div>
                 </div>
             </div>
         </header>
-        <LoginModal isLoginOpen={modalToOpen === 'login'} setIsLoginOpen={setModalToOpen} setLoggedIn={setLoggedIn} />
+        <LoginModal isLoginOpen={modalToOpen === 'login'} setIsLoginOpen={setModalToOpen} />
      </>)
 }
 

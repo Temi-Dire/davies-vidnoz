@@ -41,9 +41,9 @@ const TopupModal:React.FC<TopupModalProps> = ({ isTopupOpen, setIsTopUpOpen }) =
                 </DialogHeader>
                 <div className="flex gap-x-4">
                     <div className="w-full gap-5 grid grid-cols-3 grid-rows-8">
-                       {paymentChoicesQuery && paymentChoicesQuery?.data && paymentChoicesQuery?.data.map( ({ method, choices }) =>
+                       {paymentChoicesQuery && paymentChoicesQuery?.data && Array.isArray(paymentChoicesQuery?.data) && paymentChoicesQuery?.data.map( ({ method, choices }) =>
                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                       choices.map(({price, ...rest}, i) =>  <div key={i}
+                       choices.map(({ price }, i) =>  <div key={i}
                        className={` text-center ${ price !== selectedAmount.price ? ' border bg-white text-black' : ' bg-purple-700 text-white '} rounded-lg p-2 border-[#000000] cursor-pointer `}
                        onClick={() => {setSelectedAmount({ price, method })}}
                        >
