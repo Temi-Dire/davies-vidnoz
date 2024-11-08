@@ -1,26 +1,25 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useGetPaymentChoices, useTopUp } from "@/hooks/usePayment";
 import toast from "react-hot-toast";
 import { Rings } from "react-loader-spinner";
 
 interface TopupModalProps {
-    isTopupOpen: boolean;
-    setIsTopUpOpen: (value: boolean) => void;
+  isTopupOpen: boolean;
+  setIsTopUpOpen: (value: boolean) => void;
 }
 
-type Amount = {price: number | null, method: string | null}
+type Amount = { price: number | null; method: string | null };
 
-const TopupModal:React.FC<TopupModalProps> = ({ isTopupOpen, setIsTopUpOpen }) => {
+const TopupModal: React.FC<TopupModalProps> = ({ isTopupOpen, setIsTopUpOpen }) => {
+  const [selectedAmount, setSelectedAmount] = useState<Amount>({ price: null, method: null });
 
-    const [selectedAmount, setSelectedAmount] = useState<Amount>({price: null, method: null});
+  const paymentChoicesQuery = useGetPaymentChoices();
 
-    const paymentChoicesQuery = useGetPaymentChoices();
+  const topUpQuery = useTopUp();
 
-    const topUpQuery = useTopUp();
-
-    const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
     const handleTopUp = () => {
         if (!isLoading) {setIsLoading(true);
@@ -61,12 +60,17 @@ const TopupModal:React.FC<TopupModalProps> = ({ isTopupOpen, setIsTopUpOpen }) =
                             {price} crypto
                         </div>)}
                     </div> */}
+        </div>
+        <Button
+          disabled={Boolean(!(selectedAmount.price && selectedAmount.method))}
+          className="bg-purple-600 text-white hover:bg-purple-700"
+          onClick={handleTopUp}
+        >
+          {!isLoading ? <p>Pay</p> : <Rings height="40" width="40" color="#ffffff" ariaLabel="rings-loading" />}
+        </Button>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
-                </div>
-                <Button disabled = {Boolean(!(selectedAmount.price && selectedAmount.method))} className="bg-purple-600 text-white hover:bg-purple-700" onClick={handleTopUp} >{!isLoading ? <p>Pay</p> : <Rings height="40" width="40" color="#ffffff" ariaLabel="rings-loading" />}</Button>
-            </DialogContent>
-        </Dialog>
-    )
-}
-
-export default TopupModal
+export default TopupModal;
