@@ -15,10 +15,9 @@ import { Rings } from 'react-loader-spinner'
 interface LoginModalProps { 
     isLoginOpen: boolean;
     setIsLoginOpen: (value: 'login' | 'sign-up' | 'hidden') => void;
-    setLoggedIn: (value: boolean) => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, setLoggedIn}) => {
+const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen}) => {
     const [showTelegramInput, setShowTelegramInput] = useState(false);
     const [telegramCode, setTelegramCode] = useState('')
     const [email, setEmail] = useState('')
@@ -34,7 +33,6 @@ const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, set
     if (telegramCode === '123456') {
         console.log('Telegram login successful')
         setIsLoginOpen('hidden')
-        setLoggedIn(true)
     } else {
         console.log('Invalid Telegram code')
     }
@@ -50,7 +48,6 @@ const LoginModal: React.FC<LoginModalProps> = ({isLoginOpen, setIsLoginOpen, set
     const handleGoogleLogin = () => {
     console.log('Google login attempted')
     setIsLoginOpen('hidden')
-    setLoggedIn(true)
     }
 
     const handleTelegramLogin = () => {

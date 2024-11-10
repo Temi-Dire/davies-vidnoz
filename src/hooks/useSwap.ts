@@ -7,7 +7,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 export const useSwapImage = () => { 
     const {auth_token} = useClientStore();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<any>('/api/swap/image-image/')
+	const apiClient = new ApiClient<any, FormData>('/api/swap/image-image/')
 	return useMutation({
 		mutationFn: (form: FormData) => apiClient.post(form, 
             {
@@ -22,7 +22,7 @@ export const useSwapImage = () => {
 export const useSwapVideo = () => { 
     const {auth_token} = useClientStore();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<any>('/api/swap/video-image/');
+	const apiClient = new ApiClient<any, FormData>('/api/swap/video-image/');
 	return useMutation({
 		mutationFn: (form: FormData) => apiClient.post(form, 
             {
@@ -39,7 +39,7 @@ export const useSwapVideo = () => {
 
 export const useGetSuggested = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<SuggestedType>("/api/swap/suggested/");
+	const apiClient = new ApiClient<SuggestedType, any>("/api/swap/suggested/");
 	return useQuery(
         {
             queryKey: ['suggested'], 
@@ -50,15 +50,15 @@ export const useGetSuggested = () => {
     );
 };
 
-export const useGetUserVideos = () => {
+export const useGetMyVideos = () => {
 
 	const {auth_token} = useClientStore();
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<any>("/api/swap/user-videos/");
+	const apiClient = new ApiClient<SuggestedType, any>("/api/swap/my-videos/");
 	return useQuery(
         {
-            queryKey: ['user-videos'], 
+            queryKey: ['my-videos'], 
             queryFn: () => {
                 return apiClient.get({headers: {Authorization: "Bearer " + auth_token}})
             }

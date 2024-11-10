@@ -1,12 +1,28 @@
+import { useClientStore } from "@/store/user-store";
 import { API_URL } from "@/utils/constants";
 import axios, { AxiosRequestConfig } from "axios";
+import toast from "react-hot-toast";
 
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
-class ApiClient<T> {
+// Interceptor to handle 401 errors globally
+axiosInstance.interceptors.response.use(
+  (response) => response, 
+  (error) => {
+    const { auth_token, reset } = useClientStore();
+    if ( error.response && error.response?.status === 401 && auth_token ) {
+      window.location.reload();
+      toast.error('Please login again');
+      reset();
+    }
+    return Promise.reject(error);
+  }
+);
+
+class ApiClient<T, PostDataType> {
   endpoint: string;
 
   constructor(endpoint: string) {
@@ -23,11 +39,11 @@ class ApiClient<T> {
     }
   };
 
-  post = async (data: any, config: AxiosRequestConfig = {}) => {
+  post = async (data: PostDataType, config: AxiosRequestConfig = {}) => {
     return axiosInstance.post<T>(this.endpoint, data, config).then((res) => res.data);
   };
 
-  patch = async (data: any) => {
+  patch = async (data: PostDataType) => {
     try {
       const response = await axiosInstance.patch<T>(this.endpoint, data);
       return response.data;

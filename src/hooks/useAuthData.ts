@@ -8,7 +8,7 @@ type UserResponse = {access_token: string, message: string, status: boolean}
 
 export const useLoginUser = () => { 
 	const {setAuthToken} = useClientStore();
-	const apiClient = new ApiClient<UserResponse>('/api/auth/login/')
+	const apiClient = new ApiClient<UserResponse, User>('/api/auth/login/')
 	return useMutation({
 		mutationFn: (user: User) => apiClient.post(user),
 		onSuccess: (res) => {
@@ -19,7 +19,7 @@ export const useLoginUser = () => {
 
 export const useCreateUser = () => { 
 	const {setAuthToken} = useClientStore();
-	const apiClient = new ApiClient<UserResponse>('/api/auth/register/');
+	const apiClient = new ApiClient<UserResponse, User>('/api/auth/register/');
 	return useMutation({
 		mutationFn: (user: User) => apiClient.post(user),
 		onSuccess: (res) => {
@@ -30,7 +30,7 @@ export const useCreateUser = () => {
 
 export const useGoogleLogin = () => {
 	const {setAuthToken} = useClientStore();
-	const apiClient = new ApiClient<UserResponse>('/api/auth/google-login/');
+	const apiClient = new ApiClient<UserResponse, {token: string}>('/api/auth/google-login/');
 	return useMutation({
 		// mutationFn: () => apiClient.get(),
 		mutationFn: (token: {token: string}) => apiClient.post(token),

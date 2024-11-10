@@ -26,7 +26,7 @@ export const useGetPaymentChoices = () => {
 	const {auth_token} = useClientStore();
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<TopUpReturnType[]>("/api/payment/pay_choices/");
+	const apiClient = new ApiClient<TopUpReturnType[], any>("/api/payment/pay_choices/");
 	return useQuery(
         {
             queryKey: ['payment-choices'], 
@@ -40,7 +40,7 @@ export const useGetPaymentChoices = () => {
 export const useTopUp = () => { 
     const {auth_token} = useClientStore();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const apiClient = new ApiClient<{invoice_id: string, link: string}>('/api/payment/topup/')
+	const apiClient = new ApiClient<{invoice_id: string, link: string}, {price: number, method: string}>('/api/payment/topup/')
 	return useMutation({
 		mutationFn: (data: {price: number, method: string}) => apiClient.post(data, 
             {
