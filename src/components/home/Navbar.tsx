@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button"
 import LoginModal from "./LoginModal"
 import { useClientStore } from "@/store/user-store";
 
-import { JwtPayload, jwtDecode } from "jwt-decode";
-
-interface CustomJwtPayload extends JwtPayload {
-  username: string; // Add other properties as needed
-}
+// interface CustomJwtPayload extends JwtPayload {
+//   username: string; // Add other properties as needed
+// }
 
 
 interface NavbarProps {
@@ -23,8 +21,6 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
     const {auth_token} = useClientStore();
 
     const [modalToOpen, setModalToOpen] = useState<'login' | 'sign-up' | 'hidden'>('hidden');
-
-    const decodedToken = jwtDecode<CustomJwtPayload>(auth_token as string);
 
 
     const toggleProcessedMedia = () => {
@@ -57,7 +53,7 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
                     </nav> */}
                     <div className="flex items-center">
                         {auth_token ? (
-                        <Button variant="ghost" className="text-gray-700 mr-4 border border-black" onClick={toggleProcessedMedia}> Welcome, {decodedToken.username}</Button>
+                        <Button variant="ghost" className="text-gray-700 mr-4 border border-black" onClick={toggleProcessedMedia}> Welcome</Button>
                         ) : (
                         <Button variant="ghost" className="text-gray-500 hover:text-gray-900 mr-4" onClick={() => {setIsLoginOpen(true); setModalToOpen('login')}}>Login</Button>
                         )}
