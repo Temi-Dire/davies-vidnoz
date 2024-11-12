@@ -30,6 +30,7 @@ const Home = () => {
   ]
 
   const balance = 100;
+  
 
   const [isTopUpOpen, setIsTopUpOpen] = useState<boolean>(false);
 
