@@ -1,5 +1,5 @@
 // import { ChevronDown } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import LoginModal from "./LoginModal"
 import { useClientStore } from "@/store/user-store";

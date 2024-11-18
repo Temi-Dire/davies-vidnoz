@@ -25,7 +25,13 @@ const TopupModal: React.FC<TopupModalProps> = ({ isTopupOpen, setIsTopUpOpen }) 
         if (!isLoading) {setIsLoading(true);
         if(selectedAmount.price && selectedAmount.method) {
             const {price, method} = selectedAmount;
-            topUpQuery.mutate({price, method}, {onSuccess: (res) => { window.location.href = res.link }})
+            topUpQuery.mutate({price, method}, {onSuccess: (res) => {
+              if (res?.link) {
+                window.location.href = res.link 
+              } else {
+                console.error('The response is undefined or missing a link')
+              }
+            }})
         } else {
             toast.error('Please select an amount to top-up')
         }} else return;
