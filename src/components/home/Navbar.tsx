@@ -27,11 +27,11 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
         setShowProcessedMedia(!showProcessedMedia)
     }
 
-    useEffect(() => {
-         if  (!auth?.access_token)  {
-        setModalToOpen('login');
-        }
-    }, [])
+    // useEffect(() => {
+    //      if  (!auth?.access_token)  {
+    //     setModalToOpen('login');
+    //     }
+    // }, [])
 
     return (<>
         <header className="bg-white shadow-sm">
