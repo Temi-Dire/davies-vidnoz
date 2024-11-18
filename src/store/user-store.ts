@@ -2,13 +2,13 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface AuthType {
-	auth_token: string | null;
-	setAuthToken: (token: string | null) => void;
+	auth: {access_token: string; email: string; message: string; status: boolean} | null;
+	setAuth: (token: {access_token: string; email: string; message: string; status: boolean} | null) => void;
 	reset: () => void;
 }
 
 const initialState = {
-	auth_token: null,
+	auth: null,
 };
 
 export const useClientStore = create<
@@ -18,7 +18,7 @@ export const useClientStore = create<
 	persist(
 		(set) => ({
 			...initialState,
-			setAuthToken: (auth_token) => set(() => ({ auth_token })),
+			setAuth: (auth) => set(() => ({ auth })),
 			reset: () => set(initialState),
 		}),
 		{

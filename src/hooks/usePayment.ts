@@ -23,7 +23,7 @@ type TopUpReturnType = {
 
 export const useGetPaymentChoices = () => {
 
-	const {auth_token} = useClientStore();
+	const { auth } = useClientStore();
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const apiClient = new ApiClient<TopUpReturnType[], any>("/api/payment/pay_choices/");
@@ -31,21 +31,21 @@ export const useGetPaymentChoices = () => {
         {
             queryKey: ['payment-choices'], 
             queryFn: () => {
-                return apiClient.get({headers: {Authorization: "Bearer " + auth_token}})
+                return apiClient.get({headers: {Authorization: "Bearer " + auth?.access_token}})
             }
         }
     );
 };
 
 export const useTopUp = () => { 
-    const {auth_token} = useClientStore();
+    const { auth } = useClientStore();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const apiClient = new ApiClient<{invoice_id: string, link: string}, {price: number, method: string}>('/api/payment/topup/')
 	return useMutation({
 		mutationFn: (data: {price: number, method: string}) => apiClient.post(data, 
             {
                 headers: {
-                    Authorization: "Bearer " + auth_token
+                    Authorization: "Bearer " + auth?.access_token
                 }
             }
         )

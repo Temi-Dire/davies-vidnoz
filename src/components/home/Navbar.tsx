@@ -18,7 +18,7 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
 
     const [, setIsLoginOpen] = useState(false)
 
-    const {auth_token} = useClientStore();
+    const { auth } = useClientStore();
 
     const [modalToOpen, setModalToOpen] = useState<'login' | 'sign-up' | 'hidden'>('hidden');
 
@@ -28,7 +28,7 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
     }
 
     useEffect(() => {
-         if  (!auth_token)  {
+         if  (!auth?.access_token)  {
         setModalToOpen('login');
         }
     }, [])
@@ -52,8 +52,8 @@ const Navbar:React.FC<NavbarProps> = ({showProcessedMedia, setShowProcessedMedia
                         <a href="#" className="text-gray-500 hover:text-gray-900">Company <ChevronDown className="inline h-4 w-4" /></a>
                     </nav> */}
                     <div className="flex items-center">
-                        {auth_token ? (
-                        <Button variant="ghost" className="text-gray-700 mr-4 border border-black" onClick={toggleProcessedMedia}> Welcome</Button>
+                        {auth?.access_token ? (
+                        <Button variant="ghost" className="text-gray-700 mr-4 border border-black" onClick={toggleProcessedMedia}> Welcome, {auth.email}</Button>
                         ) : (
                         <Button variant="ghost" className="text-gray-500 hover:text-gray-900 mr-4" onClick={() => {setIsLoginOpen(true); setModalToOpen('login')}}>Login</Button>
                         )}

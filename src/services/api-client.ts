@@ -1,7 +1,8 @@
-import { useClientStore } from "@/store/user-store";
+// import { useClientStore } from "@/store/user-store";
 import { API_URL } from "@/utils/constants";
 import axios, { AxiosRequestConfig } from "axios";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
+// import { handleForbiddenError } from "./error";
 
 
 const axiosInstance = axios.create({
@@ -9,18 +10,17 @@ const axiosInstance = axios.create({
 });
 
 // Interceptor to handle 401 errors globally
-axiosInstance.interceptors.response.use(
-  (response) => response, 
-  (error) => {
-    const { auth_token, reset } = useClientStore();
-    if ( error.response && error.response?.status === 401 && auth_token ) {
-      window.location.reload();
-      toast.error('Please login again');
-      reset();
-    }
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     const config = error.config as CustomAxiosRequestConfig;
+//     if (error.response?.status === 401 && config.auth_token) {
+//       // Access the auth token and reset function from arguments rather than hooks
+//       handleForbiddenError(error.config.auth_token, error.config.reset);
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 class ApiClient<T, PostDataType> {
   endpoint: string;

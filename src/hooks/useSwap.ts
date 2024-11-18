@@ -5,29 +5,29 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 
 
 export const useSwapImage = () => { 
-    const {auth_token} = useClientStore();
+    const { auth } = useClientStore();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const apiClient = new ApiClient<any, FormData>('/api/swap/image-image/')
 	return useMutation({
 		mutationFn: (form: FormData) => apiClient.post(form, 
             {
                 headers: {
-                    Authorization: "Bearer " + auth_token
-                }
+                    Authorization: "Bearer " + auth?.access_token
+                },
             }
         )
 	})
 }
 
 export const useSwapVideo = () => { 
-    const {auth_token} = useClientStore();
+    const { auth } = useClientStore();
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const apiClient = new ApiClient<any, FormData>('/api/swap/video-image/');
 	return useMutation({
 		mutationFn: (form: FormData) => apiClient.post(form, 
             {
                 headers: {
-                    Authorization: "Bearer " + auth_token
+                    Authorization: "Bearer " + auth?.access_token
                 }
             }
         ),
@@ -52,7 +52,7 @@ export const useGetSuggested = () => {
 
 export const useGetMyVideos = () => {
 
-	const {auth_token} = useClientStore();
+	const { auth } = useClientStore();
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const apiClient = new ApiClient<SuggestedType, any>("/api/swap/my-videos/");
@@ -60,7 +60,7 @@ export const useGetMyVideos = () => {
         {
             queryKey: ['my-videos'], 
             queryFn: () => {
-                return apiClient.get({headers: {Authorization: "Bearer " + auth_token}})
+                return apiClient.get({headers: {Authorization: "Bearer " + auth?.access_token}})
             }
         }
     );
