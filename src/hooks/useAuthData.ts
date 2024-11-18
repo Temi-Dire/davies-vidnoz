@@ -12,7 +12,7 @@ export const useLoginUser = () => {
 	return useMutation({
 		mutationFn: (user: User) => apiClient.post(user),
 		onSuccess: (res) => {
-			setAuth(res);
+			setAuth(res as UserResponse);
 			window.location.reload();
 		}
 	})
@@ -24,7 +24,7 @@ export const useCreateUser = () => {
 	return useMutation({
 		mutationFn: (user: User) => apiClient.post(user),
 		onSuccess: (res) => {
-			setAuth(res);
+			setAuth(res as UserResponse);
 		}
 	})
 }
@@ -36,7 +36,7 @@ export const useGoogleLogin = () => {
 		// mutationFn: () => apiClient.get(),
 		mutationFn: (token: {token: string}) => apiClient.post(token),
 		onSuccess: (res) => {
-			setAuth(res);
+			setAuth(res as UserResponse);
 		}
 	})
 }
